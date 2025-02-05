@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos de ce site</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            transition: background 0.5s, color 0.5s;
+        }
+
+        body.dark-mode {
+            background: black;
+            color: white;
+        }
+
+        body.light-mode {
+            background: white;
+            color: black;
+        }
+
+        #toggleMode {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        #backToHome {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #ff5733;
+            color: white;
+            padding: 10px 20px;
+            border: 2px solid white;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        #backToHome:hover {
+            transform: scale(1.1);
+            background-color: #e04e2a;
+        }
+
+        #description {
+            width: 70%;
+            margin: 20px auto;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 2px solid #ccc;
+            background: rgba(255, 255, 255, 0.2);
+            text-align: justify;
+            min-height: 120px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        progress {
+            width: 80%;
+            height: 10px;
+            margin-bottom: 10px;
+        }
+
+        blockquote {
+            font-style: italic;
+            margin: 20px auto;
+            width: 60%;
+            padding: 10px;
+            border-left: 5px solid #007bff;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input, textarea {
+            width: 60%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            height: 80px;
+        }
+
+        form button {
+            background-color: #28a745;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 2px solid white;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+        }
+    </style>
+    <script>
+        function toggleMode() {
+            let body = document.body;
+            let mode = body.classList.contains("dark-mode") ? "light-mode" : "dark-mode";
+            body.classList.remove("light-mode", "dark-mode");
+            body.classList.add(mode);
+            localStorage.setItem("theme", mode);
+        }
+    </script>
+</head>
+<body>
+    <button id="toggleMode" onclick="toggleMode()">🌙 Basculer Mode Clair/Sombre</button>
+    <a id="backToHome" href="index.html">🏠 Retour à l'accueil</a>
+
+    <h1>À propos de ce site</h1>
+    <div id="description">
+        <p>Je m'appelle Kentin et je débute en programmation.</p>
+        <p>Ce site est mon premier projet en HTML et CSS.</p>
+        <p>J'utilise aussi un peu de JavaScript pour améliorer les fonctionnalités.</p>
+        <p>J'espère apprendre et progresser avec le temps !</p>
+        <p>#html #css #javascript</p>
+    </div>
+
+    <h2>Mes Compétences</h2>
+    <ul>
+        <li>✅ HTML (Bases)</li>
+        <li>✅ CSS (Mise en page)</li>
+        <li>✅ JavaScript (Interactivité)</li>
+    </ul>
+
+    <h2>Mon Niveau Actuel</h2>
+    <label>HTML</label>
+    <progress value="70" max="100"></progress><br>
+    <label>CSS</label>
+    <progress value="50" max="100"></progress><br>
+    <label>JavaScript</label>
+    <progress value="30" max="100"></progress>
+
+    <blockquote>
+        "La programmation, c'est comme l'art : il faut pratiquer pour s'améliorer."  
+        <br>- Un développeur passionné
+    </blockquote>
+
+    <h2>Contacte-moi</h2>
+    <form>
+        <input type="text" placeholder="Ton nom" required><br>
+        <input type="email" placeholder="Ton email" required><br>
+        <textarea placeholder="Ton message"></textarea><br>
+        <button type="submit">Envoyer</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Site Amélioré</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            transition: background 0.5s, color 0.5s;
+        }
+
+        body.dark-mode {
+            background: black;
+            color: white;
+        }
+
+        body.light-mode {
+            background: white;
+            color: black;
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        a:hover {
+            transform: scale(1.1);
+        }
+
+        a.youtube { background-color: red; }
+        a.twitch { background-color: purple; }
+        a.discord { background-color: blue; }
+        a.page { background-color: gray; }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+        }
+
+        #clock {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        #visitorCount {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        #backToTop {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #paypalButton {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            background: #003087;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #paypalTooltip {
+            display: none;
+            position: fixed;
+            bottom: 60px;
+            left: 20px;
+            background: black;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        #feedbackContainer {
+            margin-top: 30px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+        }
+
+        #feedbackList {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            min-height: 100px;
+            overflow-y: auto;
+        }
+
+        .feedback {
+            border-bottom: 1px solid gray;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .star {
+            font-size: 30px;
+            cursor: pointer;
+            color: gray;
+        }
+
+        .star.selected {
+            color: gold;
+        }
+
+        .feedback-stars {
+            color: gold;
+        }
+    </style>
+    <script>
+        function toggleMode() {
+            let body = document.body;
+            let mode = body.classList.contains("dark-mode") ? "light-mode" : "dark-mode";
+            body.classList.remove("light-mode", "dark-mode");
+            body.classList.add(mode);
+            localStorage.setItem("theme", mode);
+        }
+
+        function updateClock() {
+            const now = new Date();
+            document.getElementById("clock").innerText = now.toLocaleTimeString();
+        }
+
+        function updateVisitorCount() {
+            let count = localStorage.getItem("visitorCount") || 0;
+            count++;
+            localStorage.setItem("visitorCount", count);
+            document.getElementById("visitorCount").innerText = "Visites : " + count;
+        }
+
+        function addFeedback() {
+            let feedbackInput = document.getElementById("feedbackInput");
+            let feedbackList = document.getElementById("feedbackList");
+            let selectedStars = document.querySelectorAll(".star.selected").length;
+            if (feedbackInput.value.trim() !== "") {
+                let newFeedback = document.createElement("div");
+                newFeedback.classList.add("feedback");
+                newFeedback.innerHTML = `<span>${feedbackInput.value}</span><span class='feedback-stars'>${'★'.repeat(selectedStars)}</span>`;
+                feedbackList.appendChild(newFeedback);
+                feedbackInput.value = "";
+            }
+        }
+
+        function rateStar(star) {
+            let stars = document.querySelectorAll(".star");
+            stars.forEach(s => s.classList.remove("selected"));
+            for (let i = 0; i <= star; i++) {
+                stars[i].classList.add("selected");
+            }
+        }
+
+        window.onload = function() {
+            let savedMode = localStorage.getItem("theme") || "light-mode";
+            document.body.classList.add(savedMode);
+            setInterval(updateClock, 1000);
+            updateClock();
+            updateVisitorCount();
+        }
+
+        window.onscroll = function() {
+            document.getElementById("backToTop").style.display = window.scrollY > 100 ? "block" : "none";
+        };
+
+        function showPaypalTooltip() {
+            document.getElementById("paypalTooltip").style.display = "block";
+        }
+
+        function hidePaypalTooltip() {
+            document.getElementById("paypalTooltip").style.display = "none";
+        }
+    </script>
+</head>
+<body>
+    <div id="clock"></div>
+    <h1>Bienvenue sur mon site amélioré</h1>
+    <p>Retrouvez-moi sur mes réseaux sociaux :</p>
+
+    <a href="https://www.youtube.com/@ktnytb" target="_blank" class="youtube">YouTube</a>
+    <a href="https://www.twitch.tv/kentinytb4" target="_blank" class="twitch">Twitch</a>
+    <a href="https://discord.gg/2THng3vK" target="_blank" class="discord">Discord</a>
+
+    <button class="btn" onclick="toggleMode()">🌙 Basculer Mode Clair/Sombre</button>
+    <a href="page2.html" class="page">Aller à la deuxième page</a>
+
+    <p id="visitorCount"></p>
+    <button id="backToTop" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">⬆ Retour en haut</button>
+<button id="paypalButton" onmouseenter="showPaypalTooltip()" onmouseleave="hidePaypalTooltip()" onclick="window.open('https://www.paypal.me/kentin26', '_blank')">💰 Faire un don</button>
+<div id="paypalTooltip">Mon PayPal : paypal.me/kentin26</div>
+
+
+    <div id="feedbackContainer">
+        <h2>Laissez votre avis</h2>
+        <div class="stars">
+            <span class="star" onclick="rateStar(0)">★</span>
+            <span class="star" onclick="rateStar(1)">★</span>
+            <span class="star" onclick="rateStar(2)">★</span>
+            <span class="star" onclick="rateStar(3)">★</span>
+            <span class="star" onclick="rateStar(4)">★</span>
+        </div>
+        <textarea id="feedbackInput" placeholder="Votre avis..."></textarea>
+        <button class="btn" onclick="addFeedback()">Envoyer</button>
+        <div id="feedbackList"></div>
+    </div>
+</body>
+</html>
